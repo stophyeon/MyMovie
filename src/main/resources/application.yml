@@ -3,6 +3,7 @@ spring:
     user:
       name: user
       password: 1234
+    debug: true
 
   datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
