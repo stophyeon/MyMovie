@@ -2,16 +2,14 @@
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>회원가입</title>
+    <title>로그인</title>
 </head>
 <body>
-<form action="/user/join" method="post">
+<form sec:authorize="isAnonymous()" action="/user/login" method="post">
     <input type="text" placeholder="이메일" name="email">
-
     <input type="text" placeholder="비밀번호" name="password">
-    <input type="text" placeholder="이름" name="userName">
-    <input type="text" placeholder="전화번호" name="phoneNum">
-    <input type="submit" value="회원가입">
+    <input type="submit" value="로그인">
 </form>
+<a href="/user/join" sec:authorize="isAnonymous()">회원 가입</a>
 </body>
 </html>
