@@ -1,7 +1,5 @@
 package com.example.movies.controller;
 
-import com.example.movies.domain.User.User;
-import com.example.movies.domain.User.UserForm;
 import com.example.movies.dto.UserDto;
 import com.example.movies.service.UserService;
 import jakarta.validation.Valid;
@@ -30,5 +28,4 @@ public class UserController {
     }
     @GetMapping("/find")
     public String findUser(){return "findPW";}
-
 }

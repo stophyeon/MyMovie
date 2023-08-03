@@ -18,6 +18,8 @@ public class PrincipalService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email).orElseThrow(()
                 ->new UsernameNotFoundException("아이디를 찾을 수 없습니다"));
-        return new Principal(user);
+        Principal principal = new Principal(user);
+        System.out.println(principal.getUsername());
+        return principal;
     }
 }

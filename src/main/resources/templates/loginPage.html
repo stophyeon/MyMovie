@@ -5,11 +5,11 @@
     <title>로그인</title>
 </head>
 <body>
-<form sec:authorize="isAnonymous()" action="/user/login" method="post">
+<form  action="/user/login" method="post">
     <input type="text" placeholder="이메일" name="email">
     <input type="text" placeholder="비밀번호" name="password">
     <input type="submit" value="로그인">
 </form>
-<a href="/user/join" sec:authorize="isAnonymous()">회원 가입</a>
+<a href="/user/join">회원 가입</a>
 </body>
 </html>
