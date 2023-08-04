@@ -7,15 +7,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Principal implements UserDetails {
-    private User user;
+    private final User user;
     public Principal(User user){this.user=user;}
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collections = new ArrayList<>();
-        collections.add(() -> {
-            return user.getRole().toString();
-        });
-
+        collections.add(() -> user.getRole().toString());
         return collections;
     }
 

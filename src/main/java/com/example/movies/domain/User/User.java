@@ -2,17 +2,10 @@ package com.example.movies.domain.User;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
+
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -23,10 +16,9 @@ public class User  {
     private Long userId;
     @Email
     private String email;
-
     private String userName;
     private String password;
-    @Pattern(regexp = "yymmdd")
+    @Pattern(regexp = "[0-9]{4}[-]?[0-9]{2}[-]?[0-9]{2}", message = "날짜 포멧 안맞아요")
     private String birth;
     private String phoneNum;
     private String address;

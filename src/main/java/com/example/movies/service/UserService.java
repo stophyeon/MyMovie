@@ -2,6 +2,7 @@ package com.example.movies.service;
 
 
 
+import com.example.movies.aop.TimeCheck;
 import com.example.movies.domain.User.User;
 import com.example.movies.dto.UserDto;
 import com.example.movies.repository.UserRepository;
@@ -21,6 +22,7 @@ public class UserService{
     public boolean duplicated(UserDto userDto){
         return userRepository.findByEmail(userDto.getEmail()).isPresent();
     }
+    @TimeCheck
     public boolean signup(UserDto userDto){
         if (duplicated(userDto)){return false;}
         User user = User.builder()
