@@ -36,18 +36,20 @@ public class SecurityConfig{
         http.csrf(AbstractHttpConfigurer::disable)
                 //페이지 권한 설정
                 .authorizeHttpRequests(authorize-> authorize
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/user/home").authenticated()
+                        .anyRequest().permitAll()
                 )
                 //폼 로그인
                 .formLogin(login->login
                         .loginPage("/loginPage")
                         .loginProcessingUrl("/user/login")
-                        .defaultSuccessUrl("/",false)
+                        .defaultSuccessUrl("/user/home",false)
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .failureUrl("/user/login"))
                 //로그 아웃
                 .logout(logout->logout
+                                .logoutUrl("/user/logout")
                             .logoutSuccessUrl("/")
                         );
         return http.build();

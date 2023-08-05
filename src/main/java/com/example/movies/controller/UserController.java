@@ -1,8 +1,13 @@
 package com.example.movies.controller;
 
+import com.example.movies.domain.User.Principal;
+
 import com.example.movies.dto.UserDto;
 import com.example.movies.service.UserService;
+
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +25,18 @@ public class UserController {
     @GetMapping("/join")
     public String join(){return "signup";}
     @GetMapping("/login")
-    public String login(){return "loginPage";}
+    public String login(){
+
+        return "loginPage";}
+    @GetMapping("/home")
+    public String home(Model model){
+        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        Principal user = (Principal)auth.getPrincipal();
+        model.addAttribute("userName", user.getUsername());
+        return "home";
+    }
     @PostMapping("/join")
-    public String newJoin(@Valid UserDto userDto, Model model){
+    public String newJoin(@Valid UserDto userDto){
         if (userService.signup(userDto)){return "loginPage";}
         else{return "findPW";}
     }
