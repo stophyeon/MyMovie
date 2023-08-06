@@ -8,7 +8,7 @@
 <h1>Home 입니다</h1>
 <a href="/user/logout">로그아웃</a>
 <div>
-    <p th:text="${userName}"></p>
+    <p th:text="${#authentication.name}"></p>
 </div>
 <form action="/movie/search" method="post">
     <input type="text" name="query" placeholder="제목을 입력하세요">

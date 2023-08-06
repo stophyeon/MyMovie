@@ -11,10 +11,14 @@ import java.util.List;
 @NoArgsConstructor
 public class SearchRes {
 
+
+    private Long id;
+
     private String title;
     private String overview;
     private String poster_path;
     private Double vote_average;
+
 
 
 }

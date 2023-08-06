@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>영화상세</title>
+</head>
+<body>
+<div>
+    <p th:text="${#authentication.name}"></p>
+</div>
+    <div><img th:src="${movie.poster_path}" alt="NO IMAGE"/></div>
+    <p>제목</p><div th:text="${movie.title}"></div>
+    <p>줄거리</p><div th:text="${movie.overview}"></div>
+    <p>평점</p><div th:text="${movie.vote_average}"></div>
+</body>
+</html>

@@ -41,14 +41,36 @@ public class MovieSearchAPI {
         JSONArray jsonArray = (JSONArray)jsonObject.get("results");
         for (Object o : jsonArray) {
             JSONObject jsonObject1 = (JSONObject) o;
+            Long id = (Long) jsonObject1.get("id");
             String title = (String) jsonObject1.get("title");
             String overview = (String) jsonObject1.get("overview");
             var poster_path = "https://image.tmdb.org/t/p/w500" + jsonObject1.get("poster_path");
             Double vote_average = (Double) jsonObject1.get("vote_average");
-            movies.add(new SearchRes(title, overview, poster_path, vote_average));
+            movies.add(new SearchRes(id,title, overview, poster_path, vote_average));
         }
         return movies;
     }
+    @TimeCheck
+    public SearchRes searchMovieById(String id) throws IOException, ParseException, org.json.simple.parser.ParseException {
+        String url = "https://api.themoviedb.org/3/movie/"+id;
+        URI uri = UriComponentsBuilder.fromUriString(url)
+                .queryParam("api_key",key)
+                .queryParam("language","ko")
+                .build()
+                .encode()
+                .toUri();
+        //uri를 통해 tmdb 서버와 통신하는 부분
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<?> response = restTemplate.getForEntity(uri, String.class);
 
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObject = (JSONObject)jsonParser.parse(Objects.requireNonNull(response.getBody()).toString());
+        Long movie_id = (Long) jsonObject.get("id");
+        String overview = (String)jsonObject.get("overview");
+        String title = (String)jsonObject.get("title");
+        String poster_path = "https://image.tmdb.org/t/p/w500" +(String)jsonObject.get("poster_path");
+        Double vote_average = (Double)jsonObject.get("vote_average");
+        return new SearchRes(movie_id,title, overview, poster_path, vote_average);
+    }
 
 }

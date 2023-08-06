@@ -30,10 +30,8 @@ public class UserController {
         return "loginPage";}
     @GetMapping("/home")
     public String home(Model model){
-        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
-        Principal user = (Principal)auth.getPrincipal();
-        model.addAttribute("userName", user.getUsername());
-        return "home";
+
+        return "/home";
     }
     @PostMapping("/join")
     public String newJoin(@Valid UserDto userDto){
