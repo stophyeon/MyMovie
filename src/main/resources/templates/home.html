@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>home</title>
 </head>
 <body>
 <h1>Home 입니다</h1>
-<a href="/user/logout">로그아웃</a>
+<div>
+    <a href="/user/logout">로그아웃</a>
+</div>
 <div>
     <p th:text="${#authentication.name}"></p>
 </div>

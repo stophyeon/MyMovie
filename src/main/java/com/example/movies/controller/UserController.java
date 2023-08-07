@@ -25,14 +25,9 @@ public class UserController {
     @GetMapping("/join")
     public String join(){return "signup";}
     @GetMapping("/login")
-    public String login(){
-
-        return "loginPage";}
+    public String login(){return "loginPage";}
     @GetMapping("/home")
-    public String home(Model model){
-
-        return "/home";
-    }
+    public String home(Model model){return "/home";}
     @PostMapping("/join")
     public String newJoin(@Valid UserDto userDto){
         if (userService.signup(userDto)){return "loginPage";}

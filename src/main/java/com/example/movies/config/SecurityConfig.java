@@ -11,13 +11,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 @EnableWebSecurity(debug = true)
 @Configuration
 public class SecurityConfig{
     private final PrincipalService principalService;
-    public SecurityConfig(PrincipalService principalService) {
+    private final DataSource dataSource;
+    public SecurityConfig(PrincipalService principalService, DataSource dataSource) {
         this.principalService = principalService;
+        this.dataSource = dataSource;
     }
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -27,6 +34,22 @@ public class SecurityConfig{
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web)->web.ignoring().requestMatchers("/");
     }
+    /*@Bean
+    PersistentTokenRepository tokenRepository(){
+        JdbcTokenRepositoryImpl repository = new JdbcTokenRepositoryImpl();
+        repository.setDataSource(dataSource);
+        try {
+            repository.removeUserTokens("1");
+        }catch (Exception e){
+            repository.setCreateTableOnStartup(true);
+        }
+        return tokenRepository();
+    }*/
+    /*@Bean
+    PersistentTokenBasedRememberMeServices rememberMeServices(){
+        return new PersistentTokenBasedRememberMeServices("hi"
+        , principalService,tokenRepository());
+    }*/
     @Autowired
     protected void configuration(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(principalService);
@@ -53,7 +76,8 @@ public class SecurityConfig{
                             .logoutSuccessUrl("/")
                                 .deleteCookies("JSESSIONID")
                                 .invalidateHttpSession(true)
-                        );
+                            );
+                //.rememberMe(r-> r.rememberMeServices(rememberMeServices()));
         return http.build();
     }
 }
