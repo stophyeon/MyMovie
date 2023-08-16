@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie</title>
+  <link rel="stylesheet" href="/css/main/styles.css" />
+
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header class="wrapper">
+      <div class="wrapper-title">
+        <a href="index.html">
+          <h1>MyMovie</h1>
+        </a>
+        <div class="wrapper-info-1">
+          <ul>
+              <li><a href="/">영화</a></li>
+              <li><a href="/">커뮤니티</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- 나머지부분 묶기 -->
+          <ul class="wrapper-info-2">
+              <li><a href="/user/login">로그인</a></li>
+              <li><a href="/user/join">회원가입</a></li>
+              <li><a href="#">검색</a></li>
+          </ul>
+    </header>
+
+  <div class="wrapper-back">
+    <div class="title">
+     <h2>영화찾기 사이트 <br> MyMovie입니다.</h2>
+    </div>
+     <div>
+      <form class="search" action="/movie/search" method="post" name="movie">
+        <input type="text" id="search-input" name="query" placeholder="검색할 영화 제목을 입력해주세요." autofocus/>
+        <button type="submit" id="search-btn">검색</button>
+      </form>
+     </div>
+  </div>
+
+      <form action="/genre" method="post">
+          <div class="filter-menu">
+              <select onchange="this.form.submit()" class="select-genre" th:name="genre">
+                  <option>인기</option>
+                  <option value="28">액션</option>
+                  <option value="crime">범죄</option>
+                  <option value="SF">SF</option>
+                  <option value="35">코미디</option>
+                  <option value="romance">로맨스</option>
+                  <option value="thriller">스릴러</option>
+                  <option value="horror">공포</option>
+                  <option value="sports">스포츠</option>
+                  <option value="fantasy">판타지</option>
+                  <option value="music">음악</option>
+                  <option value="musical">뮤지컬</option>
+                  <option value="mello">멜로</option>
+              </select>
+          </div>
+      </form>
+  <!-- 영화 받아올 공간 만들기 -->
+  <div class="box-wrapper" >
+    <div class="box" th:each="movies:${movies}" ><a th:href="@{/movie/{id}(id=${movies.id})}" ><img th:src="${movies.poster_path}" alt="NO IMAGE"></a></div>
+  </div>
+
+
+  <footer>
+   
+  </footer>
+</div>
+</body>
+
+</html>

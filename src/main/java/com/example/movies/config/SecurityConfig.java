@@ -32,7 +32,8 @@ public class SecurityConfig{
     }
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
-        return (web)->web.ignoring().requestMatchers("/");
+        return (web)->web.ignoring()
+                .requestMatchers("/resources");
     }
     /*@Bean
     PersistentTokenRepository tokenRepository(){
@@ -59,7 +60,11 @@ public class SecurityConfig{
         http.csrf(AbstractHttpConfigurer::disable)
                 //페이지 권한 설정
                 .authorizeHttpRequests(authorize-> authorize
-                        .requestMatchers("/user/home").authenticated()
+                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/js/**").permitAll()
+                        .requestMatchers("/img/**").permitAll()
+                        .requestMatchers("/user/like").hasRole("Member")
+                        .requestMatchers("/admin/**").hasRole("Admin")
                         .anyRequest().permitAll()
                 )
                 //폼 로그인

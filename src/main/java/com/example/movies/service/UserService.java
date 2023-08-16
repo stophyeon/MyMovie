@@ -3,15 +3,21 @@ package com.example.movies.service;
 
 
 import com.example.movies.aop.TimeCheck;
+import com.example.movies.domain.Movie.Movie;
 import com.example.movies.domain.User.User;
+import com.example.movies.dto.SearchRes;
 import com.example.movies.dto.UserDto;
+import com.example.movies.repository.MovieRepository;
 import com.example.movies.repository.UserRepository;
+import org.springframework.core.annotation.MergedAnnotations;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService{
     private final UserRepository userRepository;
+
     private final BCryptPasswordEncoder passwordEncoder;
     public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -35,6 +41,9 @@ public class UserService{
                 .userName(userDto.getUserName()).build();
         userRepository.save(user);
         return true;
+    }
+    public User findUser(String email){
+        return userRepository.findByEmail(email).orElseThrow();
     }
 
 }

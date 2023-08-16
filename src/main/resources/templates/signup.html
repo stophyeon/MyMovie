@@ -1,20 +1,86 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>회원가입</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyMovie 회원가입 페이지</title>
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/login/signup.css">
 </head>
 <body>
-<form action="/user/join" method="post">
-    <input type="text" placeholder="이메일" name="email"><p></p>
-    <input type="text" placeholder="비밀번호" name="password"><p></p>
-    <input type="text" placeholder="이름" name="userName"><p></p>
-    <input type="text" placeholder="전화번호" name="phoneNum"><p></p>
-    <input type="text" placeholder="생년월일" name="birth"><p></p>
-    <input type="text" placeholder="주소" name="address"><p></p>
-    <input type="checkbox"  name="role" value="Member">Member
-    <input type="checkbox"  name="role" value="Admin">Admin<p></p>
-    <input type="submit" value="회원가입">
-</form>
+  <h1 class="a11y-hidden">MyMovie</h1>
+  <main>
+    <header>
+      <h2>회원가입</h2>
+      <a href="/">
+        <button type="button" class="btn-x"></button>
+      </a>
+    </header>
+  
+    <!-- 메인 section -->
+    <section class="main-sec"/>
+      <div class="wrapper">
+        <h3>MyMovie에서 여러분의 영화를 찾으세요! :) </h3>
+        
+        <form class="wrapper-idpw" action="/user/join" target="#" method="post" name="signup" autocomplete="on">
+          <label for="inpID"  class="">이메일</label>
+          <input type="text" id="inpID" class="inp ID" name="email" placeholder="이메일을 입력해주세요"></input>
+          
+  
+          <p class="error ID">아이디를 입력해 주세요</p>
+  
+          <label for="inpPS" class="">비밀번호</label>
+          <input type="password" id="inpPS" name="password" class="inp PS" placeholder="비밀번호를 입력해주세요"></input>
+          
+          <label for="inpPS" class="">생년월일</label>
+          <input type="date" id="inpBt" name="birth" class="inp Bt"></input>
+          
+          <label for="inpPS" class="">이름</label>
+          <input type="name" id="inpN" class="inp N" name="userName"placeholder="이름을 입력해주세요"></input>
+          
+          <label for="inpPS" class="">전화번호</label>
+          <input type="tel" id="inpT" class="inp T" name="phoneNum" placeholder="전화번호를 입력해주세요"></input>
+          <!-- 수정 필요 가입 유저가 이런식으로 나뉘게 해야함 대충 해놓음
+          <label for="inpPS" class="">당신은</label>
+          <select id="usertype">
+            <option value="first_option">enjoy user</option>
+            <option value="second_option">movie upload user</option>
+          </select>
+          -->
+          <input type="submit" class="signup" value="가입하기">
+
+        </form>
+        </div>
+      </div>
+    
+      <!--
+      <input type="checkbox" id="inpHold" class="inphold txt-hide">
+      <label for="inpHold" class="labl-hold">로그인 상태 유지</label>
+      -->
+      
+      <!--
+      <button class="btn-login">로그인</button>
+    
+      <div class="side-tool">
+        <button>회원가입</button>
+        <p>|</p>
+        <button>아이디/비밀번호 찾기</button>
+      </div>
+    </section>
+    -->
+
+    <!--
+    <p class="line">또는</p>
+  
+    <ul class="difLogin">
+      <li><a href="http://www.google.co.kr" class="google">구글 계정으로 로그인</a></li>
+      <li><a href="https://ko-kr.facebook.com" class="facebook">페이스북 계정으로 로그인</a></li>
+      <li><a href="https://nid.naver.com/nidlogin.login?mode=form&url=https://www.naver.com/" class="naver">네이버 계정으로 로그인</a></li>
+      <li><a href="https://www.kakaocorp.com/page/service/service/KakaoTalk" class="kakao">카카오톡 계정으로 로그인</a> </li>
+    </ul>
+    -->
+  </main>
+
 </body>
 </html>

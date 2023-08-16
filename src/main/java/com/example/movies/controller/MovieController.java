@@ -1,6 +1,8 @@
 package com.example.movies.controller;
 
+import com.example.movies.domain.Movie.Movie;
 import com.example.movies.domain.User.Principal;
+import com.example.movies.domain.User.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
@@ -42,5 +44,15 @@ public class MovieController {
         model.addAttribute("movie",movie);
         return "movieDetail";
     }
-
+    @PostMapping("/{id}/like")
+    public String addMyMovie(@PathVariable String id,Model model) throws IOException, ParseException {
+        SearchRes myMovie = movieSearchAPI.searchMovieById(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Principal user = (Principal) authentication.getPrincipal();
+        String msg=movieService.addMovies(myMovie,user.getUsername());
+        List<SearchRes> myMovieList = movieService.showMovies();
+        model.addAttribute("movies",myMovieList);
+        model.addAttribute("msg",msg);
+        return "myMovie";
+    }
 }
