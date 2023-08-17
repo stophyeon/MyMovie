@@ -2,7 +2,6 @@ package com.example.movies.service;
 
 
 import com.example.movies.domain.Movie.Movie;
-import com.example.movies.domain.User.User;
 import com.example.movies.dto.SearchRes;
 import com.example.movies.repository.MovieRepository;
 import com.example.movies.repository.UserRepository;

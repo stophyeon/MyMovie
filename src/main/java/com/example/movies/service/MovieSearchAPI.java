@@ -70,7 +70,7 @@ public class  MovieSearchAPI {
         Long movie_id = (Long) jsonObject.get("id");
         String overview = (String)jsonObject.get("overview");
         String title = (String)jsonObject.get("title");
-        String poster_path = "https://image.tmdb.org/t/p/w500" +(String)jsonObject.get("poster_path");
+        String poster_path = "https://image.tmdb.org/t/p/w300_and_h450_face" +(String)jsonObject.get("poster_path");
         Double vote_average = (Double)jsonObject.get("vote_average");
         return new SearchRes(movie_id,title, overview, poster_path, vote_average);
     }

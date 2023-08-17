@@ -41,6 +41,8 @@ public class MovieController {
     @GetMapping("/{id}")
     public String detail(Model model, @PathVariable String id) throws IOException, ParseException {
         SearchRes movie = movieSearchAPI.searchMovieById(id);
+        List<SearchRes> movies = movieSearchAPI.popularMovie();
+        model.addAttribute("movies",movies);
         model.addAttribute("movie",movie);
         return "movieDetail";
     }

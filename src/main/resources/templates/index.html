@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
   <meta charset="UTF-8" />
@@ -28,8 +28,10 @@
       </div>
       <!-- 나머지부분 묶기 -->
           <ul class="wrapper-info-2">
-              <li><a href="/user/login">로그인</a></li>
-              <li><a href="/user/join">회원가입</a></li>
+              <li sec:authorize="isAuthenticated()"><a href="/" th:text="${#authentication.name}"></a></li>
+              <li sec:authorize="isAuthenticated()"><a href="/user/logout">로그아웃</a></li>
+              <li sec:authorize="isAnonymous()"><a href="/user/login">로그인</a></li>
+              <li sec:authorize="isAnonymous()"><a href="/user/join">회원가입</a></li>
               <li><a href="#">검색</a></li>
           </ul>
     </header>
@@ -51,17 +53,15 @@
               <select onchange="this.form.submit()" class="select-genre" th:name="genre">
                   <option>인기</option>
                   <option value="28">액션</option>
-                  <option value="crime">범죄</option>
-                  <option value="SF">SF</option>
+                  <option value="12">모험</option>
+                  <option value="16">애니</option>
                   <option value="35">코미디</option>
-                  <option value="romance">로맨스</option>
-                  <option value="thriller">스릴러</option>
-                  <option value="horror">공포</option>
-                  <option value="sports">스포츠</option>
-                  <option value="fantasy">판타지</option>
-                  <option value="music">음악</option>
-                  <option value="musical">뮤지컬</option>
-                  <option value="mello">멜로</option>
+                  <option value="80">범죄</option>
+                  <option value="53">스릴러</option>
+                  <option value="878">SF</option>
+                  <option value="14">판타지</option>
+                  <option value="27">호러</option>
+
               </select>
           </div>
       </form>

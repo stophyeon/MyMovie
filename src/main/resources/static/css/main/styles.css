@@ -151,6 +151,7 @@ select {
 /* 영화 받아올 공간 */
 .box-wrapper{
   display : flex;
+  overflow: scroll;
 }
 
 .box{
