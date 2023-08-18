@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Movie</title>
   <link rel="stylesheet" href="/css/main/styles.css" />
+    <script src="/js/main/app.js" type="module"></script>
 
 
 
@@ -16,7 +17,7 @@
   <div id="container">
     <header class="wrapper">
       <div class="wrapper-title">
-        <a href="index.html">
+        <a href="/">
           <h1>MyMovie</h1>
         </a>
         <div class="wrapper-info-1">
@@ -50,19 +51,18 @@
 
       <form action="/genre" method="post">
           <div class="filter-menu">
-              <select onchange="this.form.submit()" class="select-genre" th:name="genre">
-                  <option>인기</option>
-                  <option value="28">액션</option>
-                  <option value="12">모험</option>
-                  <option value="16">애니</option>
-                  <option value="35">코미디</option>
-                  <option value="80">범죄</option>
-                  <option value="53">스릴러</option>
-                  <option value="878">SF</option>
-                  <option value="14">판타지</option>
-                  <option value="27">호러</option>
-
-              </select>
+              <ul class="select-genre">
+                  <li>인기</li>
+                  <li value="28">액션</li>
+                  <li value="12">모험</li>
+                  <li value="16">애니메이션</li>
+                  <li value="35">코미디</li>
+                  <li value="80">범죄</li>
+                  <li value="53">스릴러</li>
+                  <li value="878">SF</li>
+                  <li value="14">판타지</li>
+                  <li value="27">호러</li>
+              </ul>
           </div>
       </form>
   <!-- 영화 받아올 공간 만들기 -->
