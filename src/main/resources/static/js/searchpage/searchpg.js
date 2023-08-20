@@ -5,7 +5,6 @@ searchBtn.addEventListener('click', function(event) {
   const searchInput = document.getElementById('search-input');
   const searchTerm = searchInput.value.trim().toLowerCase();
 
-
   const searchMessage = document.getElementById('search-message');
   if (searchTerm) {
     searchMessage.textContent = `"${searchTerm}" 작품을 찾으시나요?`;

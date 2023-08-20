@@ -50,11 +50,18 @@ public class MovieController {
     public String addMyMovie(@PathVariable String id,Model model) throws IOException, ParseException {
         SearchRes myMovie = movieSearchAPI.searchMovieById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Principal user = (Principal) authentication.getPrincipal();
-        String msg=movieService.addMovies(myMovie,user.getUsername());
-        List<SearchRes> myMovieList = movieService.showMovies();
-        model.addAttribute("movies",myMovieList);
-        model.addAttribute("msg",msg);
-        return "myMovie";
+        try{
+            Principal user = (Principal) authentication.getPrincipal();
+            String msg=movieService.addMovies(myMovie,user.getUsername());
+            List<SearchRes> myMovieList = movieService.showMovies();
+            model.addAttribute("movies",myMovieList);
+            model.addAttribute("msg",msg);
+            return "myMovie";
+        }catch (Exception e){
+
+            return "loginPage";
+        }
+
+
     }
 }

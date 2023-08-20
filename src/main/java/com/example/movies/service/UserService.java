@@ -3,16 +3,25 @@ package com.example.movies.service;
 
 
 import com.example.movies.aop.TimeCheck;
+
 import com.example.movies.domain.Movie.Movie;
+import com.example.movies.domain.User.Principal;
 import com.example.movies.domain.User.User;
+
 import com.example.movies.dto.SearchRes;
 import com.example.movies.dto.UserDto;
-import com.example.movies.repository.MovieRepository;
+
 import com.example.movies.repository.UserRepository;
-import org.springframework.core.annotation.MergedAnnotations;
+
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Service
 public class UserService{
@@ -45,5 +54,17 @@ public class UserService{
     public User findUser(String email){
         return userRepository.findByEmail(email).orElseThrow();
     }
-
+    public List<SearchRes> getMyMovie(){
+        List<SearchRes> movieList = new ArrayList<>();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Principal user = (Principal) auth.getPrincipal();
+        User me=findUser(user.getUsername());
+        List<Movie> myMovie = (List<Movie>)me.getMyMovies();
+        myMovie.forEach(m->{movieList.add(SearchRes.builder()
+                        .id(m.getApiId())
+                        .title(m.getTitle())
+                        .poster_path(m.getPoster_path())
+                .build());});
+        return movieList;
+    }
 }

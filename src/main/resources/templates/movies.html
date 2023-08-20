@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8" />
@@ -19,15 +19,17 @@
             </a>
             <div class="wrapper-info-1">
                 <ul>
-                    <li><a href="/">영화</a></li>
+                    <li><a href="/user/like">내 영화</a></li>
                     <li><a href="/">커뮤니티</a></li>
                 </ul>
             </div>
         </div>
         <!-- 나머지부분 묶기 -->
         <ul class="wrapper-info-2">
-            <li><a href="/user/login">로그인</a></li>
-            <li><a href="/user/join">회원가입</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/" th:text="${#authentication.name}"></a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/user/logout">로그아웃</a></li>
+            <li sec:authorize="isAnonymous()"><a href="/user/login">로그인</a></li>
+            <li sec:authorize="isAnonymous()"><a href="/user/join">회원가입</a></li>
             <li><a href="#">검색</a></li>
         </ul>
     </header>

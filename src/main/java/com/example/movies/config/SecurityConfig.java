@@ -63,8 +63,9 @@ public class SecurityConfig{
                         .requestMatchers("/css/**").permitAll()
                         .requestMatchers("/js/**").permitAll()
                         .requestMatchers("/img/**").permitAll()
-                        .requestMatchers("/user/like").hasRole("Member")
+                        //.requestMatchers("/user/like").hasRole("Member")
                         .requestMatchers("/admin/**").hasRole("Admin")
+
                         .anyRequest().permitAll()
                 )
                 //폼 로그인
@@ -82,6 +83,7 @@ public class SecurityConfig{
                                 .deleteCookies("JSESSIONID")
                                 .invalidateHttpSession(true)
                             );
+
                 //.rememberMe(r-> r.rememberMeServices(rememberMeServices()));
         return http.build();
     }

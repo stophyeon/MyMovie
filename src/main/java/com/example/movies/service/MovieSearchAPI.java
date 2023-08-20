@@ -47,7 +47,13 @@ public class  MovieSearchAPI {
             String overview = (String) jsonObject1.get("overview");
             var poster_path = "https://image.tmdb.org/t/p/w220_and_h330_face" + jsonObject1.get("poster_path");
             Double vote_average = (Double) jsonObject1.get("vote_average");
-            movies.add(new SearchRes(id,title, overview, poster_path, vote_average));
+            movies.add(SearchRes.builder()
+                            .id(id)
+                            .title(title)
+                            .overview(overview)
+                            .poster_path(poster_path)
+                            .vote_average(vote_average)
+                    .build());
         }
         return movies;
     }
@@ -70,9 +76,21 @@ public class  MovieSearchAPI {
         Long movie_id = (Long) jsonObject.get("id");
         String overview = (String)jsonObject.get("overview");
         String title = (String)jsonObject.get("title");
+        String date = (String)jsonObject.get("release_date");
+        Long runtime = (Long) jsonObject.get("runtime");
         String poster_path = "https://image.tmdb.org/t/p/w300_and_h450_face" +(String)jsonObject.get("poster_path");
+        String backPoster = "https://image.tmdb.org/t/p/w500" +(String)jsonObject.get("backdrop_path");
         Double vote_average = (Double)jsonObject.get("vote_average");
-        return new SearchRes(movie_id,title, overview, poster_path, vote_average);
+        return SearchRes.builder()
+                .id(movie_id)
+                .title(title)
+                .overview(overview)
+                .poster_path(poster_path)
+                .vote_average(vote_average)
+                .release_date(date)
+                .back_poster(backPoster)
+                .runtime(runtime)
+                .build();
     }
     //인기 영화 조회 api
     public List<SearchRes> popularMovie() throws IOException, ParseException, org.json.simple.parser.ParseException {

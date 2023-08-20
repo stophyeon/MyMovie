@@ -36,7 +36,7 @@ public class MovieService {
 
     }
     public boolean duplicated(Movie movie){
-        return Objects.equals(movie.getApiId(), movieRepository.findByApiId(movie.getApiId()).getApiId());
+        return Objects.equals(movie, movieRepository.findByApiId(movie.getApiId()));
     }
     public List<SearchRes> showMovies(){
 

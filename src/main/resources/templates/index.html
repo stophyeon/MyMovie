@@ -22,7 +22,7 @@
         </a>
         <div class="wrapper-info-1">
           <ul>
-              <li><a href="/">영화</a></li>
+              <li><a href="/user/like">내 영화</a></li>
               <li><a href="/">커뮤니티</a></li>
           </ul>
         </div>
@@ -48,27 +48,29 @@
       </form>
      </div>
   </div>
-
-      <form action="/genre" method="post">
-          <div class="filter-menu">
-              <ul class="select-genre">
-                  <li>인기</li>
-                  <li value="28">액션</li>
-                  <li value="12">모험</li>
-                  <li value="16">애니메이션</li>
-                  <li value="35">코미디</li>
-                  <li value="80">범죄</li>
-                  <li value="53">스릴러</li>
-                  <li value="878">SF</li>
-                  <li value="14">판타지</li>
-                  <li value="27">호러</li>
-              </ul>
+    <form action="/genre" method="post">
+      <div class="filter-menu">
+          <div class="select-genre">
+              <button value="28" type="submit" name="genre">액션</button>
+              <button value="12" type="submit" name="genre">모험</button>
+              <button value="16" type="submit" name="genre">애니메이션</button>
+              <button value="35" type="submit" name="genre">코미디</button>
+              <button value="80" type="submit" name="genre">범죄</button>
+              <button value="53" type="submit" name="genre">스릴러</button>
+              <button value="878" type="submit" name="genre">SF</button>
+              <button value="14" type="submit" name="genre">판타지</button>
+              <button value="27" type="submit" name="genre">호러</button>
           </div>
-      </form>
+      </div>
+    </form>
   <!-- 영화 받아올 공간 만들기 -->
-  <div class="box-wrapper" >
+
+      <div class="box-wrapper" >
+
     <div class="box" th:each="movies:${movies}" ><a th:href="@{/movie/{id}(id=${movies.id})}" ><img th:src="${movies.poster_path}" alt="NO IMAGE"></a></div>
+
   </div>
+
 
 
   <footer>
