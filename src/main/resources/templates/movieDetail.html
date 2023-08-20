@@ -40,7 +40,7 @@
 
     <!-- main -->
     <main>
-        <div class="wrapper-back" th:style="'background-image:url('+${movie.back_poster}+');'">
+        <div class="wrapper-back" th:style="'background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('+${movie.back_poster}+');'">
 
             <div class="wrapper-box">
                 <div class="box"><img th:src="${movie.poster_path}" alt="No Image"></div>
@@ -69,14 +69,18 @@
             </div>
         </div>
         <h3>출연진</h3>
-        <ul>
-            <li class="card">
-                <a href="#">
-                    <img src="" alt="No image">
-                </a>
-                <p>인물 이름</p>
-            </li>
-        </ul>
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slider-inner">
+                    <div class="card" th:each="casts:${casts}">
+                        <a th:href="@{/movie/{cast_id}(cast_id=${casts.cast_id})}">
+                            <img th:src="${casts.profile_path}" alt="No image">
+                        </a>
+                        <p th:text="${casts.name}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- 관련 영화 -->
         <h3>인기 영화</h3>
         <div class="slider-container">

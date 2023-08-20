@@ -164,7 +164,7 @@ img {
   align-items: center;
   justify-content: space-between;
   overflow: auto;
-    overflow-y: hidden
+  overflow-y: hidden;
 }
 
 .slider-container::-webkit-scrollbar {

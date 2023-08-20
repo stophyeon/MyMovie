@@ -180,7 +180,7 @@ select {
 .box-wrapper{
   display : flex;
   overflow: auto;
-  overflow-y: hidden
+  overflow-y: hidden;
 }
 
 .box-wrapper::-webkit-scrollbar {

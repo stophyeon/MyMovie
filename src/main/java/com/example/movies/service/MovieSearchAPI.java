@@ -2,6 +2,7 @@ package com.example.movies.service;
 
 
 import com.example.movies.aop.TimeCheck;
+import com.example.movies.dto.Cast;
 import com.example.movies.dto.SearchReq;
 import com.example.movies.dto.SearchRes;
 import org.json.simple.JSONArray;
@@ -154,5 +155,40 @@ public class  MovieSearchAPI {
         }
         return movies;
     }
+    @TimeCheck
+    public List<Cast> searchCastById(String id) throws IOException, ParseException, org.json.simple.parser.ParseException {
+        String url = "https://api.themoviedb.org/3/movie/"+ id + "/credits";
+        URI uri = UriComponentsBuilder.fromUriString(url)
+                .queryParam("api_key",key)
+                .queryParam("language","ko")
+                .build()
+                .encode()
+                .toUri();
+        //uri를 통해 tmdb 서버와 통신하는 부분
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<?> response = restTemplate.getForEntity(uri, String.class);
 
+        List<Cast> casts = new ArrayList<>();
+
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObject = (JSONObject)jsonParser.parse(Objects.requireNonNull(response.getBody()).toString());
+        JSONArray jsonArray = (JSONArray)jsonObject.get("cast");
+
+        for (Object o : jsonArray) {
+            JSONObject jsonObject1 = (JSONObject) o;
+            Long cast_id = (Long) jsonObject1.get("id");
+            String name = (String)jsonObject1.get("name");
+            String character = (String)jsonObject1.get("character");
+            String profile_path = "https://image.tmdb.org/t/p/w220_and_h330_face/" +(String)jsonObject1.get("profile_path");
+
+            casts.add(Cast.builder()
+                    .cast_id(cast_id)
+                    .name(name)
+                    .character(character)
+                    .profile_path(profile_path)
+                    .build());
+        }
+        return casts;
+
+    }
 }

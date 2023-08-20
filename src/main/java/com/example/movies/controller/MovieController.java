@@ -3,11 +3,13 @@ package com.example.movies.controller;
 import com.example.movies.domain.Movie.Movie;
 import com.example.movies.domain.User.Principal;
 import com.example.movies.domain.User.User;
+import com.example.movies.dto.Cast;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import com.example.movies.dto.SearchReq;
 import com.example.movies.dto.SearchRes;
+
 import com.example.movies.service.MovieSearchAPI;
 import com.example.movies.service.MovieService;
 import com.example.movies.service.UserService;
@@ -42,9 +44,17 @@ public class MovieController {
     public String detail(Model model, @PathVariable String id) throws IOException, ParseException {
         SearchRes movie = movieSearchAPI.searchMovieById(id);
         List<SearchRes> movies = movieSearchAPI.popularMovie();
+        List<Cast> casts = movieSearchAPI.searchCastById(id);
         model.addAttribute("movies",movies);
         model.addAttribute("movie",movie);
+        model.addAttribute("casts",casts);
+
         return "movieDetail";
+    }
+    @GetMapping("/{cast_id}")
+    public String castDetail(Model model, @PathVariable String cast_id){
+
+        return "";
     }
     @PostMapping("/{id}/like")
     public String addMyMovie(@PathVariable String id,Model model) throws IOException, ParseException {
