@@ -7,7 +7,7 @@
     <meta name="viewport" content="widli=device-widli, initial-scale=1.0" />
     <title>Movie</title>
     <link rel="stylesheet" href="/css/searchpage/searchpg.css" />
-    <script src="/js/searchpage/searchpg.js" type="module"></script>
+
 </head>
 
 <body>
@@ -40,14 +40,14 @@
         </div>
         <div>
             <form class="search" action="/movie/search" method="post" name="movie">
-                <input type="text" id="search-input" name="searchMovie" placeholder="검색할 영화 제목을 입력해주세요." autofocus />
+                <input type="text" id="search-input" name="query" placeholder="검색할 영화 제목을 입력해주세요." autofocus />
                 <button type="submit" id="search-btn">검색</button>
             </form>
         </div>
     </div>
 
     <div class="search-results">
-        <p id="search-message" class="hidden">검색 결과가 없습니다.</p>
+        <p id="search-message" th:text="${size}"></p>건의 검색결과가 있습니다
     </div>
 
     <div class="slider-container">

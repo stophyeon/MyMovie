@@ -34,7 +34,7 @@ public class MovieController {
     @PostMapping("/search")
     public String search(SearchReq searchReq, Model model) throws IOException, ParseException{
         List<SearchRes> movies = movieSearchAPI.searchMovie(searchReq);
-
+        model.addAttribute("size",movies.size());
         model.addAttribute("movies",movies);
         return "movies";
     }
