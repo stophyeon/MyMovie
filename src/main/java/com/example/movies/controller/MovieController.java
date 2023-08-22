@@ -51,10 +51,13 @@ public class MovieController {
 
         return "movieDetail";
     }
-    @GetMapping("/{cast_id}")
-    public String castDetail(Model model, @PathVariable String cast_id){
-
-        return "";
+    @GetMapping("/credit/{cast_id}")
+    public String castDetail(Model model, @PathVariable String cast_id) throws IOException, ParseException {
+        Cast cast = movieSearchAPI.searchCast(cast_id);
+        List<SearchRes> movies = movieSearchAPI.searchCastDetail(cast_id);
+        model.addAttribute("cast",cast);
+        model.addAttribute("movies",movies);
+        return "actorDetail";
     }
     @PostMapping("/{id}/like")
     public String addMyMovie(@PathVariable String id,Model model) throws IOException, ParseException {
