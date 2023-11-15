@@ -31,7 +31,7 @@ Query에 장르별 번호를 넣어서 검색한 결과입니다
 
 DB에서 연관관계를 맺어서 사용자가 등록한 영화만을 DB에서 검색해서 보여줍니다 
 
-# 배우별 검
+# 배우 검색
 <img src ="https://github.com/stophyeon/MyMovie/assets/122667296/4b2e8c49-e300-4f8f-8e4b-92a5d5fda2c8">
 
 Query에 출연진의 정보를 넣어서 검색한 결과입니다
