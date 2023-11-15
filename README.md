@@ -13,3 +13,22 @@ open API를 사용해 영화를 검색하고 로그인을 통해 좋아하는 �
 
 # 로그인
 <img src ="https://github.com/stophyeon/MyMovie/assets/122667296/020771fe-4993-4256-a194-ebb91b7a9129">
+로그인을 구현은 Spring Security를 사용했습니다 사용자를 인증하고 권한을 부여했습니다.
+
+# 영화검색
+<img src ="https://github.com/stophyeon/MyMovie/assets/122667296/63b871ee-0b6f-4d91-a5ac-7c916a3a756c">
+영화의 제목을 Query로 보내서 API를 통해 검색한뒤 Json으로 받은 데이터들을 가공해서 보여줍니다
+
+# 장르별 영화
+<img src ="https://github.com/stophyeon/MyMovie/assets/122667296/642dbd54-cea2-47d6-9da7-a59888831e9c">
+Query에 장르별 번호를 넣어서 검색한 결과입니다
+
+# 내 영화 등록
+<img src ="https://github.com/stophyeon/MyMovie/assets/122667296/e74f6c32-065f-44f8-9abe-327c70bee7cf">
+DB에서 연관관계를 맺어서 사용자가 등록한 영화만을 DB에서 검색해서 보여줍니다 
+
+# 배우별 검
+<img src ="https://github.com/stophyeon/MyMovie/assets/122667296/4b2e8c49-e300-4f8f-8e4b-92a5d5fda2c8">
+Query에 출연진의 정보를 넣어서 검색한 결과입니다
+
+## DataBase - ERD
