@@ -1,5 +1,6 @@
 package com.example.movies.service;
 
+import com.example.movies.dto.SearchReq;
 import com.example.movies.dto.SearchRes;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,9 @@ class MovieSearchAPITest {
     @Autowired
     MovieSearchAPI movieSearchAPI;
     @Test
-    void searchMovie() {
+    void searchMovie() throws IOException, ParseException {
+        SearchReq sq = new SearchReq("아이언맨");
+        movieSearchAPI.testMovie(sq);
     }
 
     @Test

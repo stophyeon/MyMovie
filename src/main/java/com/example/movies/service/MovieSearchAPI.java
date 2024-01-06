@@ -8,6 +8,7 @@ import com.example.movies.dto.SearchReq;
 import com.example.movies.dto.SearchRes;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -27,10 +28,8 @@ public class  MovieSearchAPI {
     {
         key = "73b8a45b717547a965c0d9a015f1fdf9";
     }
-
-    //검색어를 통한 영화 조회 api
-    @TimeCheck
-    public List<SearchRes> searchMovie(SearchReq searchReq) throws IOException, ParseException, org.json.simple.parser.ParseException {
+    //query-param 형태로 URI 생성
+    public URI makeURI(SearchReq searchReq){
         String url = "https://api.themoviedb.org/3/search/movie";
         URI uri = UriComponentsBuilder.fromUriString(url)
                 .queryParam("query", searchReq.getQuery())
@@ -39,28 +38,51 @@ public class  MovieSearchAPI {
                 .build()
                 .encode()
                 .toUri();
-        //uri를 통해 tmdb 서버와 통신하는 부분
+        return uri;
+    }
+    public JSONObject makeJson(URI uri) throws ParseException {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<?> response = restTemplate.getForEntity(uri, String.class);
-        List<SearchRes> movies = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(Objects.requireNonNull(response.getBody()).toString());
+        return jsonObject;
+    }
+    public List<SearchRes> convertJson(Object o, List<SearchRes> movies){
+        JSONObject json = (JSONObject)JSONValue.parse(o.toString());
+        JSONObject jsonObject1 = (JSONObject) o;
+        Long id = (Long) jsonObject1.get("id");
+        String title = (String) jsonObject1.get("title");
+        String overview = (String) jsonObject1.get("overview");
+        var poster_path = "https://image.tmdb.org/t/p/w220_and_h330_face" + jsonObject1.get("poster_path");
+        Double vote_average = (Double) jsonObject1.get("vote_average");
+        movies.add(SearchRes.builder()
+                .id(id)
+                .title(title)
+                .overview(overview)
+                .poster_path(poster_path)
+                .vote_average(vote_average)
+                .build());
+        return movies;
+    }
+    @TimeCheck
+    public void testMovie(SearchReq searchReq) throws ParseException {
+        URI uri = makeURI(searchReq);
+
+        JSONObject jsonObject = makeJson(uri);
         JSONArray jsonArray = (JSONArray) jsonObject.get("results");
-        for (Object o : jsonArray) {
-            JSONObject jsonObject1 = (JSONObject) o;
-            Long id = (Long) jsonObject1.get("id");
-            String title = (String) jsonObject1.get("title");
-            String overview = (String) jsonObject1.get("overview");
-            var poster_path = "https://image.tmdb.org/t/p/w220_and_h330_face" + jsonObject1.get("poster_path");
-            Double vote_average = (Double) jsonObject1.get("vote_average");
-            movies.add(SearchRes.builder()
-                    .id(id)
-                    .title(title)
-                    .overview(overview)
-                    .poster_path(poster_path)
-                    .vote_average(vote_average)
-                    .build());
-        }
+
+    }
+    //검색어를 통한 영화 조회 api
+    @TimeCheck
+    public List<SearchRes> searchMovie(SearchReq searchReq) throws IOException, ParseException, org.json.simple.parser.ParseException {
+
+        URI uri = makeURI(searchReq);
+        //uri를 통해 tmdb 서버와 통신하는 부분
+        JSONObject jsonObject = makeJson(uri);
+        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
+        List<SearchRes> movies = new ArrayList<>();
+        jsonArray.stream().forEach(o->convertJson(o,movies));
+
         return movies;
     }
 
