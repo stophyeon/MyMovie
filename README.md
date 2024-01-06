@@ -37,9 +37,7 @@ open API를 사용해 영화를 검색하고 로그인을 통해 좋아하는 �
 ## DataBase ERD
 <img src="https://github.com/stophyeon/MyMovie/assets/122667296/2da63834-ecee-48ac-b530-1c251f9d08f4">
 
-## 아쉬웠던 부분
-프로젝트를 진행하면서 아쉬 웠던 부분은 배포입니다. 처음 프로젝트를 시작할 때는 MSA구조로 배포할 생각이 없었지만
-프로젝트 서비스를 완성하고 나니 MSA구조로 안정적인 서비스를 제공하고 싶은 생각이 들었습니다.
-그러기 위해 Docker와 Kubernets를 공부하고 있습니다.
-
+## 리팩토링
+1. TMDB API 검색속도 - MovieSearchAPI 클래스의 메서드 내용중 중복되는 기능별로 메서도를 각각 정의, for문을 Stream으로 수정
+                       결과) 제목으로 검색하는 속도 72ms -> 54ms
 
