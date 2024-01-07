@@ -2,7 +2,6 @@ package com.example.movies.service;
 
 
 import com.example.movies.aop.TimeCheck;
-import com.example.movies.domain.Movie.Movie;
 import com.example.movies.dto.Cast;
 import com.example.movies.dto.SearchReq;
 import com.example.movies.dto.SearchRes;
@@ -47,13 +46,14 @@ public class  MovieSearchAPI {
         JSONObject jsonObject = (JSONObject) jsonParser.parse(Objects.requireNonNull(response.getBody()).toString());
         return jsonObject;
     }
-    public List<SearchRes> convertJson(Object o, List<SearchRes> movies){
+    public void convertJson(Object o, List<SearchRes> movies){
         JSONObject json = (JSONObject)JSONValue.parse(o.toString());
         JSONObject jsonObject1 = (JSONObject) o;
         Long id = (Long) jsonObject1.get("id");
         String title = (String) jsonObject1.get("title");
         String overview = (String) jsonObject1.get("overview");
         var poster_path = "https://image.tmdb.org/t/p/w220_and_h330_face" + jsonObject1.get("poster_path");
+        String backPoster = "https://image.tmdb.org/t/p/w500" + (String) jsonObject1.get("backdrop_path");
         Double vote_average = (Double) jsonObject1.get("vote_average");
         movies.add(SearchRes.builder()
                 .id(id)
@@ -62,46 +62,9 @@ public class  MovieSearchAPI {
                 .poster_path(poster_path)
                 .vote_average(vote_average)
                 .build());
-        return movies;
     }
-    @TimeCheck
-    public void testMovie(SearchReq searchReq) throws ParseException {
-        URI uri = makeURI(searchReq);
+    public SearchRes convertJsonById(JSONObject jsonObject){
 
-        JSONObject jsonObject = makeJson(uri);
-        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
-
-    }
-    //검색어를 통한 영화 조회 api
-    @TimeCheck
-    public List<SearchRes> searchMovie(SearchReq searchReq) throws IOException, ParseException, org.json.simple.parser.ParseException {
-
-        URI uri = makeURI(searchReq);
-        //uri를 통해 tmdb 서버와 통신하는 부분
-        JSONObject jsonObject = makeJson(uri);
-        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
-        List<SearchRes> movies = new ArrayList<>();
-        jsonArray.stream().forEach(o->convertJson(o,movies));
-
-        return movies;
-    }
-
-    //영화 id를 통한 영화 검색 api
-    @TimeCheck
-    public SearchRes searchMovieById(String id) throws IOException, ParseException, org.json.simple.parser.ParseException {
-        String url = "https://api.themoviedb.org/3/movie/" + id;
-        URI uri = UriComponentsBuilder.fromUriString(url)
-                .queryParam("api_key", key)
-                .queryParam("language", "ko")
-                .build()
-                .encode()
-                .toUri();
-        //uri를 통해 tmdb 서버와 통신하는 부분
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<?> response = restTemplate.getForEntity(uri, String.class);
-
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(Objects.requireNonNull(response.getBody()).toString());
         Long movie_id = (Long) jsonObject.get("id");
         String overview = (String) jsonObject.get("overview");
         String title = (String) jsonObject.get("title");
@@ -120,6 +83,33 @@ public class  MovieSearchAPI {
                 .back_poster(backPoster)
                 .runtime(runtime)
                 .build();
+    }
+    //검색어를 통한 영화 조회 api
+    @TimeCheck
+    public List<SearchRes> searchMovie(SearchReq searchReq) throws IOException, ParseException, org.json.simple.parser.ParseException {
+
+        URI uri = makeURI(searchReq);
+
+        JSONObject jsonObject = makeJson(uri);
+        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
+        List<SearchRes> movies = new ArrayList<>();
+        jsonArray.forEach(o->convertJson(o,movies));
+
+        return movies;
+    }
+
+    //영화 id를 통한 영화 검색 api
+    @TimeCheck
+    public SearchRes searchMovieById(String id) throws IOException, ParseException, org.json.simple.parser.ParseException {
+        String url = "https://api.themoviedb.org/3/movie/" + id;
+        URI uri = UriComponentsBuilder.fromUriString(url)
+                .queryParam("api_key", key)
+                .queryParam("language", "ko")
+                .build()
+                .encode()
+                .toUri();
+        JSONObject jsonObject = makeJson(uri);
+        return convertJsonById(jsonObject);
     }
 
     //인기 영화 조회 api
