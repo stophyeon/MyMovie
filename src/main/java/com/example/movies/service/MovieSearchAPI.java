@@ -5,6 +5,9 @@ import com.example.movies.aop.TimeCheck;
 import com.example.movies.dto.Cast;
 import com.example.movies.dto.SearchReq;
 import com.example.movies.dto.SearchRes;
+import com.example.movies.service.makeuri.MakeUri;
+import com.example.movies.service.makeuri.UriById;
+import com.example.movies.service.makeuri.UriByQuery;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -19,26 +22,24 @@ import java.io.IOException;
 import java.net.URI;
 import org.json.simple.parser.ParseException;
 import java.util.*;
+import java.util.function.Predicate;
 
 @Service
 public class  MovieSearchAPI {
     private final String key;
+    private final UriById uriById;
+    private final UriByQuery uriByQuery;
 
     {
         key = "73b8a45b717547a965c0d9a015f1fdf9";
     }
-    //query-param 형태로 URI 생성
-    public URI makeURI(SearchReq searchReq){
-        String url = "https://api.themoviedb.org/3/search/movie";
-        URI uri = UriComponentsBuilder.fromUriString(url)
-                .queryParam("query", searchReq.getQuery())
-                .queryParam("api_key", key)
-                .queryParam("language", searchReq.getLanguage())
-                .build()
-                .encode()
-                .toUri();
-        return uri;
+
+    public MovieSearchAPI(UriById uriById, UriByQuery uriByQuery) {
+        this.uriById = uriById;
+        this.uriByQuery = uriByQuery;
     }
+    //query-param 형태로 URI 생성
+
     public JSONObject makeJson(URI uri) throws ParseException {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<?> response = restTemplate.getForEntity(uri, String.class);
@@ -88,7 +89,7 @@ public class  MovieSearchAPI {
     @TimeCheck
     public List<SearchRes> searchMovie(SearchReq searchReq) throws IOException, ParseException, org.json.simple.parser.ParseException {
 
-        URI uri = makeURI(searchReq);
+        URI uri = uriByQuery.makeURI(searchReq);
 
         JSONObject jsonObject = makeJson(uri);
         JSONArray jsonArray = (JSONArray) jsonObject.get("results");
