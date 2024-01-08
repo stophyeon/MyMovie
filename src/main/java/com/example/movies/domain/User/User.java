@@ -1,10 +1,13 @@
 package com.example.movies.domain.User;
 
+import com.example.movies.domain.Movie.Movie;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+
+import java.util.Collection;
 
 
 @Entity
@@ -23,11 +26,11 @@ public class User  {
     private String phoneNum;
     private String address;
     @Enumerated(value=EnumType.STRING)
-    private Agree marketingAgree;
-    @Enumerated(value=EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "user")
+    Collection<Movie> myMovies;
     @Builder
-    public User(Long userId, String email, String userName, String password, String birth, String phoneNum, String address, Agree marketingAgree, Role role) {
+    public User(Long userId, String email, String userName, String password, String birth, String phoneNum, String address, Role role) {
         this.userId = userId;
         this.email = email;
         this.userName = userName;
@@ -35,7 +38,7 @@ public class User  {
         this.birth = birth;
         this.phoneNum = phoneNum;
         this.address = address;
-        this.marketingAgree = marketingAgree;
+
         this.role = role;
     }
 }

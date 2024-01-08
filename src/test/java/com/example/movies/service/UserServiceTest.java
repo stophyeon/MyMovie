@@ -1,6 +1,5 @@
 package com.example.movies.service;
 
-import com.example.movies.domain.User.Agree;
 import com.example.movies.domain.User.Principal;
 import com.example.movies.domain.User.Role;
 import com.example.movies.domain.User.User;
