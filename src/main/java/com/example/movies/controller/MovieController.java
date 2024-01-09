@@ -1,13 +1,10 @@
 package com.example.movies.controller;
 
-import com.example.movies.domain.Movie.Movie;
 import com.example.movies.domain.User.Principal;
-import com.example.movies.domain.User.User;
 import com.example.movies.dto.Cast;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
-import com.example.movies.dto.SearchReq;
 import com.example.movies.dto.SearchRes;
 
 import com.example.movies.service.MovieSearchAPI;
@@ -34,8 +31,8 @@ public class MovieController {
     private final MovieService movieService;
     private final UserService userService;
     @PostMapping("/search")
-    public String search(SearchReq searchReq, Model model) throws IOException, ParseException{
-        List<SearchRes> movies = movieSearchAPI.searchMovie(searchReq);
+    public String search(String query, Model model) throws IOException, ParseException{
+        List<SearchRes> movies = movieSearchAPI.searchMovie(query);
         model.addAttribute("size",movies.size());
         model.addAttribute("movies",movies);
         return "movies";
