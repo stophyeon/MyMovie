@@ -41,3 +41,6 @@ open API를 사용해 영화를 검색하고 로그인을 통해 좋아하는 �
 1. TMDB API 검색속도 - MovieSearchAPI 클래스의 메서드 내용중 중복되는 기능별로 메서도를 각각 정의, for문을 Stream으로 수정
                        결과) 제목으로 검색하는 속도 72ms -> 54ms
 
+2. API 호출 부분 간결화를 위해 람다표현식으로 수정
+3. Logging을 위한 Filter설정
+
