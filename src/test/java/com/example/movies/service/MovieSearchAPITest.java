@@ -16,5 +16,8 @@ class MovieSearchAPITest {
     public void check() throws ParseException {
         List<SearchRes> movies =  movieSearchAPI.searchMovieByGenre("28");
         System.out.println(movies.get(1).getVote_average().getClass());
+
+
+
     }
 }
