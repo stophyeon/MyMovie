@@ -45,13 +45,13 @@ public class  MovieSearchAPI {
         String overview = (String) jsonObject1.get("overview");
         var poster_path = "https://image.tmdb.org/t/p/w220_and_h330_face" + jsonObject1.get("poster_path");
         String backPoster = "https://image.tmdb.org/t/p/w500" + (String) jsonObject1.get("backdrop_path");
-        Double vote_average = (Double) jsonObject1.get("vote_average");
+        //Double vote_average = (Double) jsonObject1.get("vote_average");
         movies.add(SearchRes.builder()
                 .id(id)
                 .title(title)
                 .overview(overview)
                 .poster_path(poster_path)
-                .vote_average(vote_average)
+                //.vote_average(vote_average)
                 .build());
     }
     public SearchRes convertJsonById(JSONObject jsonObject){
