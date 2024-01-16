@@ -53,9 +53,9 @@ public class SecurityConfig{
         return new PersistentTokenBasedRememberMeServices("hi"
         , principalService,tokenRepository());
     }*/
-    @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    @Autowired
+    protected void configuration(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(principalService);
     }
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
