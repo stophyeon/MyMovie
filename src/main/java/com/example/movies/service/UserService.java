@@ -27,13 +27,13 @@ import java.util.List;
 public class UserService{
     private final UserRepository userRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder;
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
 
-        this.passwordEncoder = passwordEncoder;
-    }
 
+    }
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     public boolean duplicated(UserDto userDto){
         return userRepository.findByEmail(userDto.getEmail()).isPresent();
     }

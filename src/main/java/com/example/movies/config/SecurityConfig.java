@@ -4,34 +4,30 @@ import com.example.movies.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
 
 @EnableWebSecurity(debug = true)
 @Configuration
 public class SecurityConfig{
+    private final AuthProvider authProvider;
     private final PrincipalService principalService;
     private final DataSource dataSource;
-    public SecurityConfig(PrincipalService principalService, DataSource dataSource) {
+    public SecurityConfig(AuthProvider authProvider, PrincipalService principalService, DataSource dataSource) {
+        this.authProvider = authProvider;
         this.principalService = principalService;
+
+
         this.dataSource = dataSource;
     }
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web)->web.ignoring()
@@ -55,7 +51,8 @@ public class SecurityConfig{
     }*/
     @Autowired
     protected void configuration(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(principalService);
+        builder.authenticationProvider(authProvider);
+
     }
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -78,6 +75,7 @@ public class SecurityConfig{
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .failureUrl("/user/login"))
+
                 //로그 아웃
                 .logout(logout->logout
                                 .logoutUrl("/user/logout")
