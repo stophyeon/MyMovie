@@ -23,7 +23,7 @@ public class MovieService {
     public boolean duplicated(Movie movie){
         return Objects.equals(movie, movieRepository.findByApiId(movie.getApiId()));
     }
-    public List<SearchRes> showMovies(){
+    public List<SearchRes> showMyMovies(){
 
         List<SearchRes> myMovies = new ArrayList<>();
         List<Movie> movies = movieRepository.findAll();

@@ -36,4 +36,14 @@ class MovieSearchAPITest {
     void searchMovieByGenre() throws ParseException, JsonProcessingException {
         System.out.println(movieSearchAPI.searchMovieByGenre("28"));
     }
+    @Test
+    void searchCastById() throws ParseException, IOException {
+        movieSearchAPI.searchCastById("10138").getCastList()
+                .forEach(u-> System.out.println(u.getName()));
+    }
+    @Test
+    void searchCastDetail() throws IOException, ParseException {
+        movieSearchAPI.searchCast("Robert Downey JR.").getResults().get(0).getMovies()
+                .forEach(m->System.out.println(m.getTitle()));
+    }
 }

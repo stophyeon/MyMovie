@@ -7,15 +7,13 @@ import org.example.dto.SearchRes;
 import org.example.dto.SearchResList;
 import org.example.service.MovieSearchAPI;
 import org.json.simple.parser.ParseException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/movie")
 public class HomeController {
     private final MovieSearchAPI movieSearchAPI;
 

@@ -1,14 +1,13 @@
 package org.example.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.List;
 
 @Data
 @RequiredArgsConstructor
-public class CastList {
-    @JsonProperty("cast")
-    private List<Cast> castList;
+public class Actor {
+    private List<Cast> results;
 }

@@ -13,4 +13,6 @@ public class SearchReq {
     String id;
     @JsonProperty("cast_id")
     String castId;
+
+    String name;
 }

@@ -16,13 +16,13 @@ class FeignMovieApiTest {
     FeignMovieApi feignMovieApi;
     @Test
     public void title(){
-        //ResponseEntity<String> res =feignMovieApi.searchByTitle("아이언맨","ko-kr","73b8a45b717547a965c0d9a015f1fdf9");
-        //System.out.println(res);
-        //ResponseEntity<String> res2 = feignMovieApi.searchById("10138","ko-kr","73b8a45b717547a965c0d9a015f1fdf9");
-        //System.out.println(res2);
+        ResponseEntity<String> res =feignMovieApi.searchByTitle("아이언맨","ko-kr","73b8a45b717547a965c0d9a015f1fdf9");
+        System.out.println(res);
+        ResponseEntity<String> res2 = feignMovieApi.searchById("10138","ko-kr","73b8a45b717547a965c0d9a015f1fdf9");
+        System.out.println(res2);
         ResponseEntity<String> res3 = feignMovieApi.searchPopular("ko-kr","73b8a45b717547a965c0d9a015f1fdf9");
         System.out.println(res3.getBody());
-        //ResponseEntity<String> res4 = feignMovieApi.searchByGenre("12","ko-kr","73b8a45b717547a965c0d9a015f1fdf9");
-        //System.out.println(res4);
+        ResponseEntity<String> res4 = feignMovieApi.searchByGenre("12","ko-kr","73b8a45b717547a965c0d9a015f1fdf9");
+        System.out.println(res4);
     }
 }

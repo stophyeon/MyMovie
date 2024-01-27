@@ -24,4 +24,6 @@ public interface FeignMovieApi {
     public ResponseEntity<String> searchByGenre(@RequestParam("genre") String genre,@RequestParam("language") String lang,@RequestParam("api_key") String api_key);
     @GetMapping("/movie/{id}/credits")
     public ResponseEntity<String> searchCastById(@PathVariable("id") String id,@RequestParam("language") String lang,@RequestParam("api_key") String api_key);
+    @GetMapping("/search/person")
+    public ResponseEntity<String> searchCastDetail(@RequestParam("query") String name,@RequestParam("language") String lang,@RequestParam("api_key") String api_key);
 }

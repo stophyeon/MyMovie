@@ -5,9 +5,7 @@ package org.example.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.dto.Cast;
-import org.example.dto.SearchRes;
-import org.example.dto.SearchResList;
+import org.example.dto.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -47,6 +45,7 @@ public class  MovieSearchAPI {
         //포스터는 프론트에서"https://image.tmdb.org/t/p/w220_and_h330_face" & 백포스터 "https://image.tmdb.org/t/p/w500"
         SearchResList resList = objectMapper.readValue(res.getBody(), SearchResList.class);
         //resList.getResults().stream()
+
         return objectMapper.readValue(res.getBody(), SearchResList.class);
     }
 
@@ -69,50 +68,13 @@ public class  MovieSearchAPI {
     }
 
 
-//    public List<Cast> searchCastById(String id) throws IOException, ParseException, ParseException {
-//
-//
-//
-//
-//        return casts;
-//    }
-//
-//
-//    public Cast searchCast(String cast_id) throws IOException, ParseException, ParseException {
-//
-//
-//        Long person_id = (Long) jsonObject.get("id");
-//        String name = (String) jsonObject.get("name");
-//        String biography = (String) jsonObject.get("biography");
-//        String profile_path = "https://image.tmdb.org/t/p/w220_and_h330_face/" + (String) jsonObject.get("profile_path");
-//
-//        return Cast.builder()
-//                .cast_id(person_id)
-//                .biography(biography)
-//                .name(name)
-//                .profile_path(profile_path)
-//                .build();
-//    }
-//
-//    public List<SearchRes> searchCastDetail(String id) throws IOException, ParseException, ParseException {
-//
-//
-//        JSONArray jsonArray = (JSONArray) jsonObject.get("cast");
-//
-//        for (Object o : jsonArray) {
-//            JSONObject jsonObject1 = (JSONObject) o;
-//            Long movie_id = (Long) jsonObject1.get("id");
-//            String title = (String) jsonObject1.get("title");
-//            String overview = (String) jsonObject1.get("overview");
-//            String poster_path = "https://image.tmdb.org/t/p/w220_and_h330_face/" + (String) jsonObject1.get("poster_path");
-//
-//            movies.add(SearchRes.builder()
-//                            .id(movie_id)
-//                            .poster_path(poster_path)
-//                            .title(title)
-//                            .overview(overview)
-//                    .build());
-//        }
-//        return movies;
-//    }
+    public CastList searchCastById(String id) throws IOException, ParseException, ParseException {
+        return objectMapper.readValue(feignMovieApi.searchCastById(id,lang,key).getBody(),CastList.class);
+    }
+
+    public Actor searchCast(String name) throws IOException, ParseException, ParseException {
+        return objectMapper.readValue(feignMovieApi.searchCastDetail(name,lang,key).getBody(), Actor.class);
+    }
+
+
 }

@@ -1,17 +1,13 @@
 package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dto.Cast;
-import org.example.dto.SearchReq;
-import org.example.dto.SearchRes;
-import org.example.dto.SearchResList;
+import org.example.dto.*;
 import org.example.service.MovieSearchAPI;
-import org.example.service.MovieService;
+
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,7 +15,7 @@ import java.util.List;
 @RequestMapping("/movie")
 public class MovieController {
     private final MovieSearchAPI movieSearchAPI;
-    private final MovieService movieService;
+
 
     @PostMapping("/search")
     public List<SearchRes> search(@RequestBody SearchReq req) throws IOException, ParseException{
@@ -29,18 +25,16 @@ public class MovieController {
         return movies.getResults();
     }
     @GetMapping("/detail")
-    public SearchRes detail(@RequestBody SearchReq req) throws IOException, ParseException {
+    public MovieDetailDto detail(@RequestBody SearchReq req) throws IOException, ParseException {
         SearchRes movie = movieSearchAPI.searchMovieById(req.getId());
-        //List<Cast> casts = movieSearchAPI.searchCastById(req.getId());
-
-        return movie;
+        CastList castList = movieSearchAPI.searchCastById(req.getId());
+        return new MovieDetailDto(movie,castList);
     }
     @GetMapping("/credit")
-    public List<SearchRes> castDetail(@RequestBody SearchReq req) throws IOException, ParseException {
-        //Cast cast = movieSearchAPI.searchCast(req.getCastId());
-        List<SearchRes> movies = new ArrayList<>();//movieSearchAPI.searchCastDetail(req.getCastId());
+    public List<Cast> castDetail(@RequestBody SearchReq req) throws IOException, ParseException {
+        Actor actor = movieSearchAPI.searchCast(req.getName());
 
-        return movies;
+        return actor.getResults();
     }
 
 
