@@ -23,11 +23,10 @@ public class UserController {
 
     }
 
-    @PostMapping("/login")
-    public UserForm login(@RequestBody UserForm userForm){
-        return userService.login(userForm);
-
-    }
+//    @PostMapping("/login")
+//    public UserForm login(@RequestBody UserForm userForm){
+//        return userService.login(userForm);
+//    }
 
     @PostMapping("/join")
     public String newJoin(@Valid @RequestBody UserDto userDto){
