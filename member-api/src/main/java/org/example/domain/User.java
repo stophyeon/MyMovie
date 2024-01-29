@@ -1,6 +1,7 @@
 package org.example.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -18,6 +19,7 @@ import java.util.Collection;
 public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long userId;
     @Email
     private String email;

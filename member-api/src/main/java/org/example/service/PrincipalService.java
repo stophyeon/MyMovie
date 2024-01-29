@@ -9,13 +9,21 @@ import org.example.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
+
 public class PrincipalService implements UserDetailsService {
     private final UserRepository userRepository;
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    public PrincipalService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
