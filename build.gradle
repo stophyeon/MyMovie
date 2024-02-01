@@ -17,6 +17,7 @@ subprojects {
 	java{
 		sourceCompatibility = "17"
 	}
+
 	repositories {
 		mavenCentral()
 		maven { url 'https://repo.spring.io/milestone' }
@@ -41,4 +42,11 @@ subprojects {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
 }

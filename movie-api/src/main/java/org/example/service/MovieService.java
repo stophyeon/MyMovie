@@ -15,7 +15,8 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class MovieService {
+public class
+MovieService {
     private final MovieRepository movieRepository;
 
 
