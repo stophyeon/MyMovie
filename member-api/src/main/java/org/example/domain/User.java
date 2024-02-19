@@ -21,19 +21,17 @@ public class User  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long userId;
-    @Email
+
     private String email;
     private String userName;
     private String password;
-    @Pattern(regexp = "[0-9]{4}[-]?[0-9]{2}[-]?[0-9]{2}", message = "날짜 포멧 안맞아요")
     private String birth;
     private String phoneNum;
     private String address;
-    @Enumerated(value=EnumType.STRING)
-    private Role role;
+    private String role;
 
     @Builder
-    public User(Long userId, String email, String userName, String password, String birth, String phoneNum, String address, Role role) {
+    public User(Long userId, String email, String userName, String password, String birth, String phoneNum, String address,String role) {
         this.userId = userId;
         this.email = email;
         this.userName = userName;
@@ -41,7 +39,7 @@ public class User  {
         this.birth = birth;
         this.phoneNum = phoneNum;
         this.address = address;
+        this.role= role;
 
-        this.role = role;
     }
 }

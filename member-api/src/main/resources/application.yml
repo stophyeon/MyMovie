@@ -3,11 +3,8 @@ spring:
     name: member
   profiles:
     active: dev
-  cloud:
-    config:
-      uri: http://localhost:8071
   config:
-    import: optional:configserver:http://localhost:8071
+    import: optional:configserver:http://movie-config-service-1:8071
 
 management:
   endpoints:

@@ -51,10 +51,22 @@ services:
     networks:
       - bridge
     restart: on-failure
-  test-service:
+  movie-service:
     image: stophyeon/movie:movie-api
     ports:
       - 0:1000
+    environment:
+      - DISCOVERY_SERVICE_URL=http://localhost:8761/eureka/
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+    networks:
+      - bridge
+    restart: on-failure
+  memeber-service:
+    image: stophyeon/movie:member-api
+    ports:
+      - "0:1001"
     environment:
       - DISCOVERY_SERVICE_URL=http://localhost:8761/eureka/
     depends_on:

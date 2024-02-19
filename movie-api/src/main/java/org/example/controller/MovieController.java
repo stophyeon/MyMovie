@@ -33,7 +33,6 @@ public class MovieController {
     @GetMapping("/credit")
     public List<Cast> castDetail(@RequestBody SearchReq req) throws IOException, ParseException {
         Actor actor = movieSearchAPI.searchCast(req.getName());
-
         return actor.getResults();
     }
 

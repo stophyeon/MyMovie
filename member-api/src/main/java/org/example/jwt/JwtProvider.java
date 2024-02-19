@@ -31,12 +31,11 @@ public class JwtProvider {
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
     private final Key key;
     public JwtProvider(@Value("${jwt.secret}") String secretKey) {
-        log.info("JWT 생성");
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
     public JwtTokenDto generateTokenDto(Authentication authentication) {
-        // 권한들 가져오기
+        log.info("JWT 생성");
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -67,7 +66,7 @@ public class JwtProvider {
     }
     public Authentication getAuthentication(String accessToken) {
         // 토큰 복호화
-        log.info("JWT 추출");
+        log.info("요청에서 Token 추출");
         Claims claims = parseClaims(accessToken);
 
         if (claims.get(AUTHORITIES_KEY) == null) {

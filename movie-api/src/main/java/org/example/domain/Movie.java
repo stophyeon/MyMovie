@@ -15,7 +15,6 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long movies_id;
-
     @Column(name = "api_id")
     private Long apiId;
     private String poster_path;
