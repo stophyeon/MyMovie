@@ -1,0 +1,87 @@
+version: '3'
+services:
+  mysql-container:
+    # 사용할 이미지
+    image: mysql:8.2.0
+    # 컨테이너 실행 시 재시작
+    restart: always
+    # 컨테이너명 설정
+    networks:
+      - bridge
+    # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+    ports:
+      - "3306:3306"
+    # 환경 변수 설정
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      TZ: Asia/Seoul
+    # 명렬어 설정
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    # 볼륨 설정
+    volumes:
+      - ./data/mysql/:/var/lib/mysql
+
+  discovery-service:
+    image: stophyeon/movie:eureka
+    ports:
+      - 8761:8761
+    networks:
+      - bridge
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8761/ || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+  apigateway-service:
+    image: stophyeon/movie:api-gw
+    ports:
+      - 8888:8888
+    environment:
+      - DISCOVERY_SERVICE_URL=http://localhsot:8761/eureka/
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://api-gw:8888/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+    networks:
+      - bridge
+    restart: on-failure
+  movie-service:
+    image: stophyeon/movie:movie-api
+    ports:
+      - 0:1000
+    environment:
+      - DISCOVERY_SERVICE_URL=http://localhost:8761/eureka/
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+    networks:
+      - bridge
+    restart: on-failure
+  memeber-service:
+    image: stophyeon/movie:member-api
+    ports:
+      - "0:1001"
+    environment:
+      - DISCOVERY_SERVICE_URL=http://localhost:8761/eureka/
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+    networks:
+      - bridge
+    restart: on-failure
+  config-service:
+    image: stophyeon/movie:config
+    ports:
+      - 8071:8071
+    networks:
+      - bridge
+    restart: on-failure
+
+networks:
+  bridge:
