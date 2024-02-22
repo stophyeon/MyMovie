@@ -28,7 +28,7 @@ public class User  {
     private String birth;
     private String phoneNum;
     private String address;
-    private String role;
+    private String role="Member";
 
     @Builder
     public User(Long userId, String email, String userName, String password, String birth, String phoneNum, String address,String role) {
