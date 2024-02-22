@@ -28,7 +28,7 @@ public class HomeController {
 
         return popularMovies.getResults();
     }
-    @PostMapping("/genre")
+    @GetMapping("/genre")
     public List<SearchRes> searchGenre(@RequestBody SearchReq req) throws ParseException, JsonProcessingException {
 
         SearchResList genreMovies = movieSearchAPI.searchMovieByGenre(req.getGenre());
