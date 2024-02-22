@@ -34,8 +34,7 @@ open API를 사용해 영화를 검색하고 로그인을 통해 좋아하는 �
 <img src ="https://github.com/stophyeon/MyMovie/assets/122667296/4b2e8c49-e300-4f8f-8e4b-92a5d5fda2c8">
 
 
-## DataBase ERD
-<img src="https://github.com/stophyeon/MyMovie/assets/122667296/2da63834-ecee-48ac-b530-1c251f9d08f4">
+
 
 ## 리팩토링
 1. TMDB API 검색속도 - MovieSearchAPI 클래스의 메서드 내용중 중복되는 기능별로 메서도를 각각 정의, for문을 Stream으로 수정
